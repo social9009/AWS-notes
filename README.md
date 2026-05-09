@@ -1,4 +1,4 @@
-cat > /mnt/user-data/outputs/README.md << 'MDEOF'
+
 <div align="center">
 
 <img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=6,11,20&height=200&section=header&text=AWS%20Cloud%20Mastery&fontSize=50&fontAlignY=35&desc=Complete%20Scenario-Driven%20Notes%20%7C%20Interview%20Ready%20%7C%20Real-World%20Examples&descAlignY=55&fontColor=fff&descSize=15" width="100%"/>
