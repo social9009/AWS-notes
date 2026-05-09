@@ -1,0 +1,1209 @@
+cat > /mnt/user-data/outputs/AWS-README.html << 'HTMLEOF'
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>☁️ AWS Cloud Mastery — Akshay Sawant</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Playfair+Display:ital,wght@0,700;0,900;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#030d1a;--s1:#061628;--s2:#092038;--s3:#0c2a4a;
+  --border:#0e3155;--border2:#164070;
+  --gold:#ffb300;--orange:#ff6d00;--amber:#ffa726;
+  --sky:#29b6f6;--cyan:#00e5ff;--teal:#1de9b6;
+  --green:#69f0ae;--lime:#c6ff00;
+  --pink:#f48fb1;--purple:#ce93d8;--red:#ff5252;
+  --text:#dff0ff;--muted:#5b8db8;--dim:#2d5c84;
+  --gA:rgba(255,179,0,0.1);--gS:rgba(41,182,246,0.1);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Space Grotesk',sans-serif;background:var(--bg);color:var(--text);font-size:16px;line-height:1.8;overflow-x:hidden}
+
+/* ─── ANIMATED GRID BG ─── */
+body::before{
+  content:'';position:fixed;inset:0;
+  background-image:linear-gradient(rgba(255,179,0,.03) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,179,0,.03) 1px,transparent 1px);
+  background-size:60px 60px;
+  mask-image:radial-gradient(ellipse 80% 80% at 50% 50%,black 40%,transparent 100%);
+  pointer-events:none;z-index:0;
+}
+body::after{
+  content:'';position:fixed;inset:0;
+  background:radial-gradient(ellipse 60% 40% at 20% 20%,rgba(255,179,0,.04) 0%,transparent 60%),
+    radial-gradient(ellipse 50% 60% at 80% 70%,rgba(41,182,246,.05) 0%,transparent 60%);
+  pointer-events:none;z-index:0;
+}
+
+/* ─── NAV ─── */
+nav{
+  position:sticky;top:0;z-index:999;
+  background:rgba(3,13,26,.95);
+  backdrop-filter:blur(30px);
+  border-bottom:1px solid var(--border);
+  padding:0;
+}
+.nav-bar{
+  max-width:1200px;margin:0 auto;padding:10px 20px;
+  display:flex;align-items:center;gap:4px;
+  overflow-x:auto;scrollbar-width:none;
+}
+.nav-bar::-webkit-scrollbar{display:none}
+.nav-brand{
+  font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:.9rem;
+  color:var(--gold);white-space:nowrap;margin-right:16px;
+  display:flex;align-items:center;gap:6px;
+}
+.nav-bar a{
+  font-family:'JetBrains Mono',monospace;font-size:.67rem;
+  color:var(--muted);text-decoration:none;
+  padding:5px 11px;border-radius:20px;border:1px solid transparent;
+  white-space:nowrap;transition:all .2s;letter-spacing:.02em;
+}
+.nav-bar a:hover{color:var(--gold);border-color:var(--border2);background:rgba(255,179,0,.06)}
+
+/* ─── HERO ─── */
+.hero{
+  position:relative;z-index:1;
+  max-width:1200px;margin:0 auto;
+  padding:90px 24px 70px;text-align:center;
+}
+.hero-tag{
+  display:inline-flex;align-items:center;gap:8px;
+  background:linear-gradient(135deg,rgba(255,179,0,.1),rgba(255,109,0,.05));
+  border:1px solid rgba(255,179,0,.3);border-radius:30px;
+  padding:7px 20px;font-family:'JetBrains Mono',monospace;
+  font-size:.71rem;color:var(--gold);margin-bottom:28px;letter-spacing:.05em;
+  animation:halo 2.5s ease-in-out infinite;
+}
+@keyframes halo{0%,100%{box-shadow:0 0 0 0 rgba(255,179,0,.3)}50%{box-shadow:0 0 0 12px rgba(255,179,0,0)}}
+.hero h1{
+  font-family:'Playfair Display',serif;font-weight:900;
+  font-size:clamp(2.8rem,6vw,5.5rem);line-height:1.05;
+  margin-bottom:20px;
+}
+.grad{
+  background:linear-gradient(135deg,var(--gold) 0%,var(--orange) 40%,var(--sky) 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.hero p{
+  font-size:1.05rem;color:var(--muted);
+  max-width:580px;margin:0 auto 40px;font-style:italic;
+}
+.tags{display:flex;justify-content:center;flex-wrap:wrap;gap:10px;margin-bottom:60px}
+.tag{
+  font-family:'JetBrains Mono',monospace;font-size:.68rem;
+  padding:5px 14px;border-radius:5px;border:1px solid;transition:all .25s;cursor:default;
+}
+.tg{color:var(--gold);border-color:rgba(255,179,0,.4);background:rgba(255,179,0,.06)}
+.ts{color:var(--sky);border-color:rgba(41,182,246,.4);background:rgba(41,182,246,.06)}
+.tt{color:var(--teal);border-color:rgba(29,233,182,.4);background:rgba(29,233,182,.06)}
+.tp{color:var(--purple);border-color:rgba(206,147,216,.4);background:rgba(206,147,216,.06)}
+.tag:hover{transform:translateY(-2px);box-shadow:0 4px 16px rgba(0,0,0,.4)}
+
+/* ─── TOC ─── */
+.toc{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));
+  gap:10px;margin:20px 0 40px;
+}
+.toc-item{
+  background:var(--s1);border:1px solid var(--border);border-radius:8px;
+  padding:12px 16px;text-decoration:none;color:var(--text);
+  display:flex;align-items:center;gap:10px;font-size:.85rem;
+  transition:all .2s;
+}
+.toc-item:hover{border-color:var(--gold);background:var(--s2);transform:translateX(4px)}
+.toc-num{
+  font-family:'JetBrains Mono',monospace;font-size:.7rem;
+  color:var(--orange);background:rgba(255,109,0,.1);
+  border:1px solid rgba(255,109,0,.3);padding:2px 8px;border-radius:3px;
+  flex-shrink:0;
+}
+
+/* ─── LAYOUT ─── */
+.wrap{max-width:1200px;margin:0 auto;padding:0 24px;position:relative;z-index:1}
+.section{margin-bottom:80px}
+.sh{display:flex;align-items:center;gap:14px;margin-bottom:32px}
+.sn{
+  font-family:'JetBrains Mono',monospace;font-size:.7rem;
+  color:var(--orange);background:rgba(255,109,0,.1);
+  border:1px solid rgba(255,109,0,.3);padding:4px 10px;border-radius:4px;
+}
+.sh h2{font-family:'Playfair Display',serif;font-weight:700;font-size:1.65rem}
+.sl{flex:1;height:1px;background:linear-gradient(90deg,var(--border),transparent)}
+
+/* ─── CARDS ─── */
+.card{
+  background:var(--s1);border:1px solid var(--border);border-radius:14px;
+  padding:24px;margin-bottom:18px;transition:all .25s;
+}
+.card:hover{border-color:rgba(255,179,0,.3);box-shadow:0 0 40px rgba(255,179,0,.08)}
+.cg{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;margin-bottom:20px}
+.card h3{
+  font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:1rem;
+  margin-bottom:10px;display:flex;align-items:center;gap:8px;
+}
+
+/* ─── CODE ─── */
+pre,.code-b{
+  background:#020912;border:1px solid var(--border);
+  border-left:3px solid var(--gold);border-radius:9px;
+  padding:20px;font-family:'JetBrains Mono',monospace;
+  font-size:.78rem;overflow-x:auto;margin:14px 0;line-height:1.75;
+}
+code,.mono{font-family:'JetBrains Mono',monospace;font-size:.8em;background:rgba(41,182,246,.1);color:var(--sky);padding:1px 6px;border-radius:3px}
+.k{color:var(--cyan);font-weight:700}
+.v{color:var(--green)}
+.c{color:var(--dim);font-style:italic}
+.s{color:var(--teal)}
+.n{color:var(--gold)}
+.err{color:var(--red)}
+
+/* ─── TABLES ─── */
+.tw{overflow-x:auto;margin:14px 0}
+table{width:100%;border-collapse:collapse;font-size:.84rem}
+th{
+  font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:.72rem;
+  letter-spacing:.08em;text-transform:uppercase;
+  background:var(--s2);color:var(--muted);
+  padding:12px 16px;text-align:left;border-bottom:1px solid var(--border);
+}
+td{padding:10px 16px;border-bottom:1px solid rgba(14,49,85,.5);vertical-align:top}
+tr:hover td{background:rgba(255,179,0,.02)}
+.y{color:var(--green);font-weight:600}
+.no{color:var(--red)}
+.w{color:var(--gold)}
+
+/* ─── CALLOUTS ─── */
+.cl{border-radius:10px;padding:14px 20px;margin:14px 0;display:flex;gap:12px;align-items:flex-start;font-size:.9rem}
+.ca{background:rgba(255,179,0,.07);border-left:3px solid var(--gold)}
+.cs{background:rgba(41,182,246,.07);border-left:3px solid var(--sky)}
+.cg2{background:rgba(105,240,174,.07);border-left:3px solid var(--green)}
+.cr{background:rgba(255,82,82,.07);border-left:3px solid var(--red)}
+.cp{background:rgba(206,147,216,.07);border-left:3px solid var(--purple)}
+.ci{font-size:1.1rem;flex-shrink:0;margin-top:3px}
+
+/* ─── RESPONSIBILITY GRID ─── */
+.resp-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border-radius:12px;overflow:hidden;margin:18px 0}
+.resp-col{background:var(--s1)}
+.resp-head{padding:14px;text-align:center;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:.85rem}
+.resp-row{padding:10px 14px;font-size:.78rem;font-family:'JetBrains Mono',monospace;border-top:1px solid var(--border);display:flex;align-items:center;gap:7px}
+.you-row{background:rgba(105,240,174,.06);color:var(--green)}
+.prov-row{background:rgba(41,182,246,.05);color:var(--muted)}
+
+/* ─── FLOW DIAGRAM ─── */
+.flow{display:flex;align-items:center;flex-wrap:wrap;gap:0;margin:18px 0;justify-content:center}
+.fb{
+  background:var(--s2);border:1px solid var(--border);border-radius:9px;
+  padding:11px 16px;font-family:'JetBrains Mono',monospace;
+  font-size:.76rem;text-align:center;min-width:100px;
+  transition:all .2s;
+}
+.fb:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(0,0,0,.5)}
+.fb.g{border-color:var(--gold);color:var(--gold)}
+.fb.s{border-color:var(--sky);color:var(--sky)}
+.fb.e{border-color:var(--green);color:var(--green)}
+.fb.t{border-color:var(--teal);color:var(--teal)}
+.fb.p{border-color:var(--purple);color:var(--purple)}
+.fb.r{border-color:var(--red);color:var(--red)}
+.farr{color:var(--muted);font-size:1.3rem;padding:0 6px;user-select:none}
+
+/* ─── VPC ARCHITECTURE ─── */
+.vpc-wrap{background:var(--s1);border:1px solid var(--border);border-radius:14px;padding:24px;margin:18px 0}
+.az-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:16px}
+.az-box{background:var(--s2);border:1px solid var(--border2);border-radius:10px;padding:16px}
+.az-title{font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--muted);margin-bottom:10px;letter-spacing:.06em}
+.subnet{border-radius:7px;padding:10px 12px;margin-bottom:6px;font-family:'JetBrains Mono',monospace;font-size:.74rem;border:1px solid}
+.pub-s{background:rgba(105,240,174,.07);border-color:rgba(105,240,174,.25);color:var(--green)}
+.priv-s{background:rgba(255,179,0,.07);border-color:rgba(255,179,0,.25);color:var(--gold)}
+.db-s{background:rgba(41,182,246,.07);border-color:rgba(41,182,246,.25);color:var(--sky)}
+.vpc-title{font-family:'Playfair Display',serif;font-weight:700;font-size:1.05rem;color:var(--gold);margin-bottom:4px}
+.vpc-tag{font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--muted)}
+
+/* ─── NAT FLOW ─── */
+.nat-steps{list-style:none;margin:18px 0;counter-reset:ns}
+.nat-steps li{
+  counter-increment:ns;display:flex;gap:14px;
+  padding:14px 0;border-bottom:1px solid rgba(14,49,85,.5);font-size:.88rem;
+}
+.nat-steps li:last-child{border-bottom:none}
+.nat-steps li::before{
+  content:counter(ns);min-width:30px;height:30px;border-radius:50%;
+  background:rgba(255,179,0,.1);border:1px solid var(--gold);color:var(--gold);
+  font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:.78rem;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;
+}
+.nat-steps li strong{color:var(--gold)}
+
+/* ─── COMPARISON SPLIT ─── */
+.split{display:grid;grid-template-columns:1fr auto 1fr;gap:14px;align-items:center;margin:18px 0}
+.split-box{background:var(--s2);border:1px solid var(--border);border-radius:12px;padding:20px}
+.split-title{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:.9rem;margin-bottom:12px;padding-bottom:10px;border-bottom:1px solid var(--border)}
+.split-item{font-family:'JetBrains Mono',monospace;font-size:.74rem;color:var(--muted);padding:5px 0;display:flex;gap:7px;align-items:flex-start}
+.split-item::before{content:'▸';color:var(--gold);flex-shrink:0}
+.vs-badge{font-family:'Playfair Display',serif;font-weight:900;font-size:1.4rem;color:var(--gold);text-align:center}
+
+/* ─── OSI LAYERS ─── */
+.osi{margin:18px 0}
+.osi-row{
+  display:grid;grid-template-columns:50px 150px 1fr 130px;
+  gap:10px;align-items:center;padding:10px 14px;
+  border-radius:7px;margin-bottom:4px;font-size:.82rem;
+}
+.o7{background:rgba(255,179,0,.08)}.o6{background:rgba(255,109,0,.07)}
+.o5{background:rgba(41,182,246,.08)}.o4{background:rgba(41,182,246,.06)}
+.o3{background:rgba(105,240,174,.07)}.o2{background:rgba(29,233,182,.06)}
+.o1{background:rgba(91,141,184,.08)}
+.onum{font-family:'JetBrains Mono',monospace;font-weight:700;font-size:.88rem;text-align:center}
+.oname{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:.84rem}
+.oproto{font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--muted)}
+.ofunc{font-size:.78rem;color:var(--muted)}
+
+/* ─── PITR TIMELINE ─── */
+.tline{position:relative;padding-left:30px;margin:20px 0}
+.tline::before{content:'';position:absolute;left:10px;top:0;bottom:0;width:2px;background:linear-gradient(180deg,var(--gold),var(--sky),var(--green))}
+.tl{position:relative;margin-bottom:22px}
+.tl::before{content:'';position:absolute;left:-24px;top:7px;width:12px;height:12px;border-radius:50%;background:var(--gold);border:2px solid var(--bg);box-shadow:0 0 0 2px var(--gold)}
+.tl.bad::before{background:var(--red);box-shadow:0 0 0 2px var(--red)}
+.tl.good::before{background:var(--green);box-shadow:0 0 0 2px var(--green)}
+.tl-t{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:.88rem;margin-bottom:4px}
+.tl-d{font-size:.83rem;color:var(--muted)}
+
+/* ─── SIZE BARS ─── */
+.bars{margin:16px 0}
+.bar-row{display:grid;grid-template-columns:130px 1fr 90px;gap:12px;align-items:center;margin-bottom:10px}
+.bar-lbl{font-family:'JetBrains Mono',monospace;font-size:.76rem}
+.bar-bg{background:rgba(14,49,85,.6);border-radius:4px;height:20px;overflow:hidden}
+.bar-fill{height:100%;border-radius:4px;font-family:'JetBrains Mono',monospace;font-size:.66rem;font-weight:700;display:flex;align-items:center;padding-left:8px;white-space:nowrap;transition:width 1.4s cubic-bezier(.25,.46,.45,.94)}
+.bar-val{font-family:'JetBrains Mono',monospace;font-size:.76rem;color:var(--muted);text-align:right}
+
+/* ─── EXAMPLE BOX ─── */
+.ex{
+  background:linear-gradient(135deg,rgba(255,179,0,.04),rgba(41,182,246,.04));
+  border:1px solid rgba(255,179,0,.18);border-radius:12px;
+  padding:20px 24px;margin:18px 0;position:relative;
+}
+.ex::before{
+  content:'🔥 REAL-WORLD SCENARIO';position:absolute;top:-11px;left:18px;
+  background:var(--bg);padding:0 10px;font-family:'JetBrains Mono',monospace;
+  font-size:.62rem;color:var(--orange);letter-spacing:.12em;
+}
+
+/* ─── INTERVIEW TIP ─── */
+.itip{background:rgba(206,147,216,.07);border:1px solid rgba(206,147,216,.2);border-radius:10px;padding:16px 20px;margin:16px 0}
+.itip-h{font-family:'Space Grotesk',sans-serif;font-weight:700;color:var(--purple);margin-bottom:8px;font-size:.88rem;display:flex;align-items:center;gap:6px}
+
+/* ─── ACCORDION ─── */
+details{background:var(--s1);border:1px solid var(--border);border-radius:10px;margin-bottom:10px;overflow:hidden}
+details[open]{border-color:rgba(255,179,0,.3)}
+summary{padding:16px 20px;cursor:pointer;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:.9rem;display:flex;align-items:center;gap:10px;list-style:none;user-select:none;transition:background .2s}
+summary::-webkit-details-marker{display:none}
+summary:hover{background:var(--s2)}
+summary::after{content:'＋';margin-left:auto;color:var(--gold);font-size:1.1rem;transition:transform .2s}
+details[open] summary::after{content:'−'}
+.det-body{padding:0 20px 20px}
+
+/* ─── FOOTER ─── */
+footer{border-top:1px solid var(--border);margin-top:80px;padding:50px 24px;text-align:center;position:relative;z-index:1}
+.ft-name{font-family:'Playfair Display',serif;font-weight:900;font-size:1.4rem;background:linear-gradient(135deg,var(--gold),var(--sky));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:8px}
+.ft-sub{color:var(--muted);font-size:.88rem;margin-bottom:20px}
+
+/* ─── UTILITY ─── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.section{animation:fadeUp .5s ease both}
+hr.div{height:1px;background:linear-gradient(90deg,transparent,var(--border),transparent);border:none;margin:44px 0}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-bar">
+    <span class="nav-brand">☁️ AWS Mastery</span>
+    <a href="#cloud">Cloud Models</a>
+    <a href="#dns">DNS & Internet</a>
+    <a href="#tcpip">TCP/IP & OSI</a>
+    <a href="#nat">NAT Gateway</a>
+    <a href="#vpc">VPC</a>
+    <a href="#sg">Security Groups</a>
+    <a href="#rds">RDS</a>
+    <a href="#cache">ElastiCache</a>
+    <a href="#dynamo">DynamoDB</a>
+    <a href="#trouble">Troubleshooting</a>
+    <a href="#cost">Cost</a>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="hero-tag">☁️ AWS DevOps Learning Series · Scenario-Driven Notes</div>
+  <h1>AWS <span class="grad">Cloud</span><br>Mastery</h1>
+  <p>Real-world scenarios, architecture diagrams & interview-ready answers for every AWS concept — with practical examples from production environments.</p>
+  <div class="tags">
+    <span class="tag tg">EC2 · RDS · VPC</span>
+    <span class="tag ts">Networking · NAT</span>
+    <span class="tag tt">ElastiCache · DynamoDB</span>
+    <span class="tag tp">Interview Ready</span>
+    <span class="tag tg">By Akshay Sawant · Pune</span>
+    <span class="tag ts">AWS Solutions Architect Associate</span>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <!-- TOC -->
+  <div class="toc">
+    <a class="toc-item" href="#cloud"><span class="toc-num">01</span>☁️ Cloud Service Models</a>
+    <a class="toc-item" href="#dns"><span class="toc-num">02</span>🌐 DNS & How Internet Works</a>
+    <a class="toc-item" href="#tcpip"><span class="toc-num">03</span>🔌 TCP/IP & OSI Model</a>
+    <a class="toc-item" href="#nat"><span class="toc-num">04</span>🔐 AWS NAT Gateway</a>
+    <a class="toc-item" href="#vpc"><span class="toc-num">05</span>🏗️ VPC Fundamentals</a>
+    <a class="toc-item" href="#sg"><span class="toc-num">06</span>🛡️ Security Groups & NACLs</a>
+    <a class="toc-item" href="#rds"><span class="toc-num">07</span>🗄️ AWS RDS Deep Dive</a>
+    <a class="toc-item" href="#cache"><span class="toc-num">08</span>⚡ Amazon ElastiCache</a>
+    <a class="toc-item" href="#dynamo"><span class="toc-num">09</span>📦 Amazon DynamoDB</a>
+    <a class="toc-item" href="#trouble"><span class="toc-num">10</span>🔍 Troubleshooting Scenarios</a>
+    <a class="toc-item" href="#cost"><span class="toc-num">11</span>💰 AWS Cost Optimization</a>
+    <a class="toc-item" href="#cheat"><span class="toc-num">12</span>🎯 Interview Cheat Sheet</a>
+  </div>
+
+<!-- ══════════════════════════ §01 CLOUD MODELS ══════════════════════════ -->
+<section class="section" id="cloud">
+  <div class="sh"><span class="sn">01</span><h2>Cloud Service Models</h2><div class="sl"></div></div>
+
+  <div class="resp-grid">
+    <div class="resp-col">
+      <div class="resp-head" style="background:rgba(41,182,246,.12);color:var(--sky)">☁️ IaaS<br><span style="font-size:.7rem;color:var(--muted)">EC2, Azure VMs</span></div>
+      <div class="resp-row you-row">✅ Application Code</div>
+      <div class="resp-row you-row">✅ Runtime</div>
+      <div class="resp-row you-row">✅ OS Patches</div>
+      <div class="resp-row you-row">✅ Load Balancing</div>
+      <div class="resp-row prov-row">🔵 Virtualization</div>
+      <div class="resp-row prov-row">🔵 Hardware</div>
+    </div>
+    <div class="resp-col">
+      <div class="resp-head" style="background:rgba(255,179,0,.12);color:var(--gold)">🛠️ PaaS<br><span style="font-size:.7rem;color:var(--muted)">RDS, App Engine</span></div>
+      <div class="resp-row you-row">✅ App Config</div>
+      <div class="resp-row you-row">✅ App Code</div>
+      <div class="resp-row prov-row">🔵 Runtime</div>
+      <div class="resp-row prov-row">🔵 OS Patches</div>
+      <div class="resp-row prov-row">🔵 Virtualization</div>
+      <div class="resp-row prov-row">🔵 Hardware</div>
+    </div>
+    <div class="resp-col">
+      <div class="resp-head" style="background:rgba(105,240,174,.12);color:var(--green)">📦 SaaS<br><span style="font-size:.7rem;color:var(--muted)">Gmail, Office 365</span></div>
+      <div class="resp-row prov-row">🔵 Everything</div>
+      <div class="resp-row prov-row">🔵 App Code</div>
+      <div class="resp-row prov-row">🔵 Runtime</div>
+      <div class="resp-row prov-row">🔵 OS Patches</div>
+      <div class="resp-row prov-row">🔵 Virtualization</div>
+      <div class="resp-row prov-row">🔵 Hardware</div>
+    </div>
+  </div>
+  <p style="text-align:center;font-size:.75rem;color:var(--muted);margin-top:4px"><span style="color:var(--green)">✅ YOU manage</span> &nbsp;·&nbsp; <span style="color:var(--sky)">🔵 PROVIDER manages</span></p>
+
+  <div class="cg" style="margin-top:22px">
+    <div class="card" style="border-top:2px solid var(--purple)">
+      <h3 style="color:var(--purple)">⚡ Serverless</h3>
+      <p style="font-size:.88rem">ZERO infrastructure visibility. You write code — cloud handles scaling, patching, availability. <strong>Pay ONLY for execution time. Zero usage = Zero cost!</strong></p>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.73rem;color:var(--muted);margin-top:10px">AWS Lambda · AWS Fargate · Azure Functions · Cloud Run</div>
+    </div>
+    <div class="card" style="border-top:2px solid var(--teal)">
+      <h3 style="color:var(--teal)">🖥️ Virtualization</h3>
+      <p style="font-size:.88rem">Hypervisor splits one physical server into many VMs. Each VM has its own OS and app. <strong>Foundation of all cloud computing</strong> — EC2, containers, Lambda all sit on virtualization layers.</p>
+    </div>
+  </div>
+
+  <div class="ex">
+    <p><strong>🎯 Real-World Mapping:</strong> When you use <code>Amazon EC2</code> — that's <strong>IaaS</strong>. You manage the OS, app, scaling. When you use <code>Amazon RDS</code> — that's <strong>PaaS</strong>. AWS patches MySQL, takes backups, handles Multi-AZ. When you use <code>Gmail</code> — that's <strong>SaaS</strong>. You just open a browser.</p>
+  </div>
+</section>
+
+<!-- ══════════════════════════ §02 DNS ══════════════════════════ -->
+<section class="section" id="dns">
+  <div class="sh"><span class="sn">02</span><h2>DNS & How the Internet Works</h2><div class="sl"></div></div>
+
+  <div class="cl ca"><span class="ci">🧠</span><div><strong>Interview Gold:</strong> "What happens when you type <code>www.google.com</code>?" — This is asked in 80% of DevOps/Cloud interviews. Master all 10 steps!</div></div>
+
+  <h3 style="font-family:'Playfair Display',serif;margin:20px 0 14px">📡 End-to-End Request Flow</h3>
+  <ol class="nat-steps">
+    <li><p><strong>Browser Cache Check</strong> — Browser first checks local cache. Recently visited? Return instantly. Not cached? Proceed to DNS.</p></li>
+    <li><p><strong>OS Cache (/etc/hosts)</strong> — Checks OS-level DNS cache and <code>/etc/hosts</code> file. If found, use that IP immediately.</p></li>
+    <li><p><strong>DNS Resolution</strong> — Recursive resolver (ISP) → Root DNS → TLD (.com) → Authoritative DNS → Returns IP like <code>142.250.183.206</code></p></li>
+    <li><p><strong>TCP 3-Way Handshake</strong> — Client: <strong>SYN</strong> → Server: <strong>SYN-ACK</strong> → Client: <strong>ACK</strong>. Connection established!</p></li>
+    <li><p><strong>TLS Handshake (HTTPS)</strong> — Browser + Server agree on encryption algo, exchange certificates, verify identity. Prevents MITM attacks.</p></li>
+    <li><p><strong>HTTP Request Sent</strong> — <code>GET / HTTP/1.1 Host: www.google.com</code> with User-Agent, cookies, headers.</p></li>
+    <li><p><strong>Load Balancer (AWS ALB)</strong> — Request hits ALB first. ALB checks target group health checks, routes to healthy EC2/ECS instance.</p></li>
+    <li><p><strong>Server Processing</strong> — App processes request. May query RDS, hit ElastiCache, call DynamoDB, or invoke microservices.</p></li>
+    <li><p><strong>HTTP Response</strong> — Server sends <code>HTTP/1.1 200 OK</code> with HTML/CSS/JS payload.</p></li>
+    <li><p><strong>Browser Renders</strong> — Parses HTML → builds DOM → loads CSS → executes JS → <strong>🎉 You see the website!</strong></p></li>
+  </ol>
+
+  <h3 style="font-family:'Playfair Display',serif;margin:24px 0 12px">☁️ AWS Services at Each Step</h3>
+  <div class="tw">
+    <table>
+      <tr><th>Internet Step</th><th>AWS Service</th><th>Purpose</th></tr>
+      <tr><td>DNS Resolution</td><td><code>Route 53</code></td><td>Maps domain name → IP address</td></tr>
+      <tr><td>CDN / Static Assets</td><td><code>CloudFront</code></td><td>Serve from nearest edge location globally</td></tr>
+      <tr><td>Load Balancing</td><td><code>ALB / NLB</code></td><td>Distribute traffic to healthy backend targets</td></tr>
+      <tr><td>Compute</td><td><code>EC2 / ECS / Lambda</code></td><td>Run your application code</td></tr>
+      <tr><td>Database</td><td><code>RDS / DynamoDB</code></td><td>Store and retrieve persistent data</td></tr>
+      <tr><td>Cache Layer</td><td><code>ElastiCache (Redis)</code></td><td>Sub-millisecond reads, reduce DB load</td></tr>
+      <tr><td>SSL/TLS Certificates</td><td><code>ACM</code></td><td>Free managed SSL certificates</td></tr>
+    </table>
+  </div>
+
+  <h3 style="font-family:'Playfair Display',serif;margin:24px 0 12px">🔍 Website Not Loading — Debug Ladder</h3>
+  <pre><span class="c"># Golden Rule: Debug bottom-up → Client → DNS → Network → Server → App → DB</span>
+
+<span class="k">L1 CLIENT:</span>  <span class="s">curl -I https://example.com</span> · <span class="s">ping example.com</span>
+            Hard refresh (Ctrl+Shift+R) · Try incognito
+
+<span class="k">L2 DNS:</span>     <span class="s">nslookup example.com</span> · <span class="s">dig example.com</span>
+            Check Route53 A record · DNS propagation
+
+<span class="k">L3 NETWORK:</span> <span class="s">traceroute example.com</span>
+            Security Group: Port 80/443 open? · NACL rules?
+
+<span class="k">L4 PORT:</span>    <span class="s">telnet example.com 443</span> · <span class="s">nc -zv example.com 443</span>
+            <span class="s">netstat -tulnp | grep 80</span> → Is nginx/apache listening?
+
+<span class="k">L5 SSL:</span>     <span class="s">openssl s_client -connect example.com:443</span>
+            Certificate expired? Wrong domain cert?
+
+<span class="k">L6 WEBSERVER:</span> <span class="s">systemctl status nginx</span> · <span class="s">journalctl -u nginx</span>
+              <span class="s">/var/log/nginx/error.log</span>
+
+<span class="k">L7 APP:</span>     <span class="s">tail -f app.log</span>
+            Code bug? Missing env var? Wrong DB connection string?
+
+<span class="k">L8 DATABASE:</span> <span class="s">telnet db-host 3306</span>
+             DB running? max_connections exceeded?</pre>
+
+  <div class="tw">
+    <table>
+      <tr><th>HTTP Code</th><th>Meaning</th><th>Root Cause</th><th>Fix</th></tr>
+      <tr><td><span style="color:var(--gold);font-weight:700">404</span></td><td>Not Found</td><td>Wrong URL / missing route</td><td>Check path, redeploy</td></tr>
+      <tr><td><span style="color:var(--red);font-weight:700">500</span></td><td>Internal Error</td><td>App crash / unhandled exception</td><td>Check app logs</td></tr>
+      <tr><td><span style="color:var(--red);font-weight:700">502</span></td><td>Bad Gateway</td><td>Backend down / health check failing</td><td>Check ECS/EC2 health</td></tr>
+      <tr><td><span style="color:var(--red);font-weight:700">503</span></td><td>Unavailable</td><td>Server overloaded / no healthy targets</td><td>Scale up / check ASG</td></tr>
+    </table>
+  </div>
+</section>
+
+<!-- ══════════════════════════ §03 TCP/IP ══════════════════════════ -->
+<section class="section" id="tcpip">
+  <div class="sh"><span class="sn">03</span><h2>TCP/IP & OSI Model</h2><div class="sl"></div></div>
+
+  <div class="split">
+    <div class="split-box" style="border-top:2px solid var(--sky)">
+      <div class="split-title" style="color:var(--sky)">🌐 TCP/IP — 4 Layers (Production)</div>
+      <div class="split-item" style="color:var(--gold)"><strong>Application</strong> — HTTP, HTTPS, DNS, SMTP</div>
+      <div class="split-item" style="color:var(--sky)"><strong>Transport</strong> — TCP, UDP, Ports</div>
+      <div class="split-item" style="color:var(--green)"><strong>Internet</strong> — IP, ICMP, ARP, Routing</div>
+      <div class="split-item" style="color:var(--purple)"><strong>Network Access</strong> — Ethernet, MAC, WiFi</div>
+      <div class="cl cg2" style="margin-top:12px;padding:10px 14px"><span class="ci" style="font-size:.9rem">✅</span><div style="font-size:.8rem"><strong>Used in real systems</strong> — Linux kernel, Windows, AWS, routers all implement TCP/IP</div></div>
+    </div>
+    <div class="vs-badge">VS</div>
+    <div class="split-box" style="border-top:2px solid var(--gold)">
+      <div class="split-title" style="color:var(--gold)">📚 OSI — 7 Layers (Conceptual)</div>
+      <div class="split-item" style="color:var(--gold)">7. Application</div>
+      <div class="split-item" style="color:var(--orange)">6. Presentation (SSL/Encryption)</div>
+      <div class="split-item" style="color:var(--sky)">5. Session</div>
+      <div class="split-item" style="color:var(--sky)">4. Transport (TCP/UDP)</div>
+      <div class="split-item" style="color:var(--green)">3. Network (IP/Routing)</div>
+      <div class="split-item" style="color:var(--teal)">2. Data Link (MAC/Ethernet)</div>
+      <div class="split-item" style="color:var(--muted)">1. Physical (Cables/Signals)</div>
+    </div>
+  </div>
+
+  <h3 style="font-family:'Playfair Display',serif;margin:24px 0 12px">OSI 7 Layers — Deep Explanation</h3>
+  <div class="osi">
+    <div class="osi-row o7"><div class="onum" style="color:var(--gold)">7</div><div class="oname" style="color:var(--gold)">Application</div><div class="oproto">HTTP · HTTPS · DNS · FTP · SMTP</div><div class="ofunc">User-facing interfaces; all browsers</div></div>
+    <div class="osi-row o6"><div class="onum" style="color:var(--orange)">6</div><div class="oname" style="color:var(--orange)">Presentation</div><div class="oproto">SSL/TLS · Encryption · Encoding</div><div class="ofunc">Data format, compress, encrypt</div></div>
+    <div class="osi-row o5"><div class="onum" style="color:var(--sky)">5</div><div class="oname" style="color:var(--sky)">Session</div><div class="oproto">Session management · Checkpoints</div><div class="ofunc">Create, manage, terminate sessions</div></div>
+    <div class="osi-row o4"><div class="onum" style="color:var(--sky)">4</div><div class="oname" style="color:var(--sky)">Transport</div><div class="oproto">TCP · UDP · Port Numbers</div><div class="ofunc">End-to-end delivery, segmentation</div></div>
+    <div class="osi-row o3"><div class="onum" style="color:var(--green)">3</div><div class="oname" style="color:var(--green)">Network</div><div class="oproto">IP · ICMP · ARP · Routers</div><div class="ofunc">Logical addressing, routing packets</div></div>
+    <div class="osi-row o2"><div class="onum" style="color:var(--teal)">2</div><div class="oname" style="color:var(--teal)">Data Link</div><div class="oproto">Ethernet · MAC · Switches · Hubs</div><div class="ofunc">Frame transmission, MAC addressing</div></div>
+    <div class="osi-row o1"><div class="onum" style="color:var(--muted)">1</div><div class="oname" style="color:var(--muted)">Physical</div><div class="oproto">Cables · WiFi · Radio Signals</div><div class="ofunc">Raw bit transmission</div></div>
+  </div>
+
+  <h3 style="font-family:'Playfair Display',serif;margin:24px 0 12px">⚔️ TCP vs UDP</h3>
+  <div class="tw">
+    <table>
+      <tr><th>Feature</th><th>TCP 🔵</th><th>UDP 🟠</th></tr>
+      <tr><td>Connection</td><td class="y">Connection-oriented</td><td class="w">Connectionless</td></tr>
+      <tr><td>Reliability</td><td class="y">✅ Guaranteed delivery</td><td class="no">❌ Best-effort</td></tr>
+      <tr><td>Order</td><td class="y">✅ Always ordered</td><td class="no">❌ No guarantee</td></tr>
+      <tr><td>Error Handling</td><td class="y">✅ Retransmission</td><td class="no">❌ None</td></tr>
+      <tr><td>Speed</td><td class="w">Slower</td><td class="y">⚡ Faster</td></tr>
+      <tr><td>Broadcasting</td><td class="no">❌ Not supported</td><td class="y">✅ Supported</td></tr>
+      <tr><td>Use Cases</td><td>HTTP, HTTPS, SSH, DB, Email</td><td>DNS, Video streaming, Gaming, IoT</td></tr>
+    </table>
+  </div>
+</section>
+
+<!-- ══════════════════════════ §04 NAT ══════════════════════════ -->
+<section class="section" id="nat">
+  <div class="sh"><span class="sn">04</span><h2>AWS NAT Gateway</h2><div class="sl"></div></div>
+
+  <div class="ex">
+    <p><strong>🏢 Real Org Scenario:</strong> Backend EC2 in private subnet needs to pull npm packages from GitHub. Private subnet has NO internet access. Solution: NAT Gateway in public subnet. Private EC2 → NAT → IGW → Internet. Source IP never exposed. Completely secure outbound access.</p>
+  </div>
+
+  <h3 style="font-family:'Playfair Display',serif;margin:20px 0 14px">🔄 SNAT Packet Flow — Step by Step</h3>
+  <pre><span class="c"># Setup: Private EC2 (10.0.2.10) downloads from internet</span>
+<span class="c"># NAT EIP: 3.110.25.100</span>
+
+<span class="k">Step 1</span> — Private EC2 sends packet:
+  SRC: <span class="n">10.0.2.10:50000</span>  →  DST: <span class="n">8.8.8.8:443</span>
+
+<span class="k">Step 2</span> — Route Table decision:
+  Private route: <span class="s">0.0.0.0/0 → NAT Gateway</span>  → packet forwarded
+
+<span class="k">Step 3</span> — SNAT Translation:
+  BEFORE: SRC = <span class="n">10.0.2.10:50000</span>  (private, hidden)
+  AFTER:  SRC = <span class="n">3.110.25.100:60000</span> (Elastic IP, public)
+  NAT State Table: <span class="v">3.110.25.100:60000 ↔ 10.0.2.10:50000</span>
+
+<span class="k">Step 4</span> — NAT → IGW → Internet → Reaches 8.8.8.8:443
+
+<span class="k">Step 5</span> — Response comes back: DST = <span class="n">3.110.25.100:60000</span>
+  NAT looks up state table → Reverse NAT
+  DST: 3.110.25.100:60000 → <span class="n">10.0.2.10:50000</span>
+
+<span class="k">Result:</span>
+  ✅ Private EC2 downloaded packages
+  ✅ Private IP never exposed to internet
+  ❌ Internet CANNOT initiate connection back to private EC2</pre>
+
+  <div class="tw" style="margin-top:14px">
+    <table>
+      <tr><th>Feature</th><th>🌐 Internet Gateway</th><th>🔐 NAT Gateway</th></tr>
+      <tr><td>Inbound internet</td><td class="y">✅ Allowed</td><td class="no">❌ Blocked</td></tr>
+      <tr><td>Outbound internet</td><td class="y">✅ Allowed</td><td class="y">✅ Allowed</td></tr>
+      <tr><td>Used by</td><td>Public subnets</td><td>Private subnets</td></tr>
+      <tr><td>Placed in</td><td>VPC attachment</td><td>Public subnet</td></tr>
+      <tr><td>Type</td><td>Bidirectional</td><td>Outbound only (SNAT)</td></tr>
+    </table>
+  </div>
+</section>
+
+<!-- ══════════════════════════ §05 VPC ══════════════════════════ -->
+<section class="section" id="vpc">
+  <div class="sh"><span class="sn">05</span><h2>VPC Fundamentals</h2><div class="sl"></div></div>
+
+  <div class="cg">
+    <div class="card">
+      <h3 style="color:var(--gold)">📡 CIDR Block Sizes</h3>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.77rem;line-height:2.1">
+        <span style="color:var(--muted)">/32</span> = <span style="color:var(--text)">1 IP</span> → Single host<br>
+        <span style="color:var(--muted)">/28</span> = <span style="color:var(--text)">16 IPs</span><br>
+        <span style="color:var(--sky)">/24</span> = <span style="color:var(--text)">256 IPs</span> ← Standard subnet<br>
+        <span style="color:var(--sky)">/22</span> = <span style="color:var(--text)">1,024 IPs</span><br>
+        <span style="color:var(--green)">/16</span> = <span style="color:var(--text)">65,536 IPs</span> ← VPC range
+      </div>
+      <div class="cl ca" style="margin-top:12px;padding:9px 12px"><span class="ci" style="font-size:.85rem">⚠️</span><div style="font-size:.78rem">AWS reserves <strong>5 IPs per subnet</strong> (first 4 + last 1) — /24 gives 251 usable IPs, not 256!</div></div>
+    </div>
+    <div class="card">
+      <h3 style="color:var(--sky)">🔐 RFC 1918 Private IP Ranges</h3>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.77rem;line-height:2.1">
+        <span style="color:var(--green)">10.0.0.0/8</span><br>
+        <span style="color:var(--muted)">10.0.0.0 – 10.255.255.255</span><br>
+        <span style="color:var(--sky)">172.16.0.0/12</span><br>
+        <span style="color:var(--muted)">172.16.0.0 – 172.31.255.255</span><br>
+        <span style="color:var(--gold)">192.168.0.0/16</span><br>
+        <span style="color:var(--muted)">192.168.0.0 – 192.168.255.255</span>
+      </div>
+      <p style="font-size:.78rem;color:var(--muted);margin-top:8px">Used in VPC, Kubernetes (Pod CIDR), Docker networks — NOT routable on public internet</p>
+    </div>
+  </div>
+
+  <h3 style="font-family:'Playfair Display',serif;margin:24px 0 14px">🏗️ Production VPC — Multi-AZ Architecture</h3>
+  <div class="vpc-wrap">
+    <div class="vpc-title">🌐 VPC: 10.0.0.0/16</div>
+    <div class="vpc-tag" style="margin-bottom:16px">ap-south-1 · 65,536 total IPs</div>
+    <div class="az-grid">
+      <div class="az-box">
+        <div class="az-title">📍 AZ: ap-south-1a</div>
+        <div class="subnet pub-s">🟢 Public 10.0.1.0/24 — ALB · Bastion · NAT GW</div>
+        <div class="subnet priv-s">🟡 Private 10.0.101.0/24 — App Servers (EC2)</div>
+        <div class="subnet db-s">🔵 DB 10.0.201.0/24 — RDS Primary</div>
+      </div>
+      <div class="az-box">
+        <div class="az-title">📍 AZ: ap-south-1b</div>
+        <div class="subnet pub-s">🟢 Public 10.0.2.0/24 — ALB Redundancy</div>
+        <div class="subnet priv-s">🟡 Private 10.0.102.0/24 — App Servers (EC2)</div>
+        <div class="subnet db-s">🔵 DB 10.0.202.0/24 — RDS Standby (Multi-AZ)</div>
+      </div>
+    </div>
+    <div style="margin-top:14px;display:grid;grid-template-columns:1fr 1fr;gap:10px">
+      <div style="background:rgba(41,182,246,.06);border:1px solid rgba(41,182,246,.2);border-radius:7px;padding:12px;font-family:'JetBrains Mono',monospace;font-size:.74rem">
+        <div style="color:var(--sky);margin-bottom:6px">📋 Public Route Table</div>
+        <div style="color:var(--muted)">10.0.0.0/16 → local<br>0.0.0.0/0 → Internet Gateway</div>
+      </div>
+      <div style="background:rgba(255,179,0,.06);border:1px solid rgba(255,179,0,.2);border-radius:7px;padding:12px;font-family:'JetBrains Mono',monospace;font-size:.74rem">
+        <div style="color:var(--gold);margin-bottom:6px">📋 Private Route Table</div>
+        <div style="color:var(--muted)">10.0.0.0/16 → local<br>0.0.0.0/0 → NAT Gateway</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════ §06 SECURITY GROUPS ══════════════════════════ -->
+<section class="section" id="sg">
+  <div class="sh"><span class="sn">06</span><h2>Security Groups & NACLs</h2><div class="sl"></div></div>
+
+  <div class="tw">
+    <table>
+      <tr><th>Feature</th><th>🔐 Security Group</th><th>🛡️ NACL</th></tr>
+      <tr><td>Applied At</td><td>Instance level (ENI)</td><td>Subnet level</td></tr>
+      <tr><td>State</td><td class="y"><strong>Stateful</strong> ✅</td><td class="no"><strong>Stateless</strong> ❌</td></tr>
+      <tr><td>Rule Types</td><td>Allow ONLY</td><td class="y">Allow + <strong>Deny</strong></td></tr>
+      <tr><td>Rule Order</td><td>All rules at once</td><td>Lowest number first</td></tr>
+      <tr><td>Return Traffic</td><td class="y">Auto-allowed</td><td class="no">Must explicitly allow</td></tr>
+      <tr><td>Best Use</td><td>Instance protection</td><td>Block bad IPs, subnet isolation</td></tr>
+    </table>
+  </div>
+
+  <div class="cl cr" style="margin-top:14px">
+    <span class="ci">🚨</span>
+    <div><strong>Most Common Mistake — NACL Stateless!</strong><br>
+    You MUST allow BOTH inbound (request) AND outbound (ephemeral ports 1024–65535) in NACL.<br>
+    Forgetting ephemeral ports = connection timeout. Users can send but NEVER receive responses!</div>
+  </div>
+
+  <h3 style="font-family:'Playfair Display',serif;margin:22px 0 14px">🎯 SG Referencing — Dynamic & Scalable</h3>
+  <div class="cg">
+    <div class="card" style="border-left:3px solid var(--red)">
+      <h3 style="color:var(--red)">❌ IP-Based Rules (Wrong)</h3>
+      <pre style="margin:8px 0;font-size:.74rem;border-left-color:var(--red)"><span class="err">DB-SG inbound:
+Allow 3306 from 10.0.1.10
+Allow 3306 from 10.0.1.11  ← breaks on restart
+Allow 3306 from 10.0.1.12  ← fails with Auto Scaling</span></pre>
+      <p style="font-size:.8rem;color:var(--muted)">Auto Scaling adds 15 new instances → ALL fail to connect. You must manually add 15 more IP rules.</p>
+    </div>
+    <div class="card" style="border-left:3px solid var(--green)">
+      <h3 style="color:var(--green)">✅ SG Referencing (Right)</h3>
+      <pre style="margin:8px 0;font-size:.74rem;border-left-color:var(--green)"><span class="v">DB-SG inbound:
+Allow 3306 from APP-SG</span>
+<span class="c"># That's it! All instances with</span>
+<span class="c"># APP-SG are automatically allowed.</span>
+<span class="c"># Scale from 2 → 20 → zero changes!</span></pre>
+      <p style="font-size:.8rem;color:var(--muted)">AWS checks: "Does incoming ENI have APP-SG attached?" Not the IP. This is dynamic!</p>
+    </div>
+  </div>
+
+  <h3 style="font-family:'Playfair Display',serif;margin:22px 0 14px">🔌 ENI Architecture</h3>
+  <div class="card" style="background:linear-gradient(135deg,rgba(255,179,0,.04),rgba(41,182,246,.04))">
+    <pre style="font-size:.79rem;margin:0"><span class="c"># ENI = Virtual Network Card attached to EC2</span>
+<span class="c"># IMPORTANT: Security Group attaches to ENI, NOT directly to EC2!</span>
+
+EC2 Instance
+    └── ENI (Elastic Network Interface)
+            ├── Private IP: 10.0.1.15
+            ├── MAC Address: 0a:1b:2c:3d:4e:5f
+            └── Security Groups: [<span class="s">WEB-SG</span>, <span class="s">MONITORING-SG</span>]  ← here!
+
+<span class="c"># Advanced: Multi-ENI EC2 (Network Appliances)</span>
+EC2 Instance
+    ├── ENI-1 → Public Subnet → [WEB-SG]      (internet traffic)
+    └── ENI-2 → Private Subnet → [INTERNAL-SG] (backend traffic)</pre>
+  </div>
+
+  <div class="ex" style="margin-top:16px">
+    <p><strong>🏗️ 3-Tier SG Architecture:</strong></p>
+    <div class="flow" style="margin:14px 0">
+      <div class="fb g">🌍 Internet<br><span style="font-size:.65rem">0.0.0.0/0</span></div>
+      <div class="farr">→</div>
+      <div class="fb s">WEB-SG<br><span style="font-size:.65rem">Port 80,443<br>from 0.0.0.0/0</span></div>
+      <div class="farr">→</div>
+      <div class="fb e">APP-SG<br><span style="font-size:.65rem">Port 8080<br>from WEB-SG</span></div>
+      <div class="farr">→</div>
+      <div class="fb t">DB-SG<br><span style="font-size:.65rem">Port 3306<br>from APP-SG</span></div>
+    </div>
+    <p style="font-size:.82rem;color:var(--muted)">Each layer only talks to adjacent layer. DB is completely unreachable from internet — even if Web Server is compromised.</p>
+  </div>
+</section>
+
+<!-- ══════════════════════════ §07 RDS ══════════════════════════ -->
+<section class="section" id="rds">
+  <div class="sh"><span class="sn">07</span><h2>AWS RDS Deep Dive</h2><div class="sl"></div></div>
+
+  <h3 style="font-family:'Playfair Display',serif;margin-bottom:14px">🔄 Multi-AZ vs Read Replicas</h3>
+  <div class="split">
+    <div class="split-box" style="border-top:2px solid var(--green)">
+      <div class="split-title" style="color:var(--green)">🛡️ Multi-AZ — High Availability</div>
+      <div style="text-align:center;padding:12px 0">
+        <div style="background:rgba(105,240,174,.08);border:1px solid rgba(105,240,174,.2);border-radius:7px;padding:10px;margin-bottom:6px;font-family:'JetBrains Mono',monospace;font-size:.77rem;color:var(--green)">PRIMARY DB · AZ-1a · (Active)</div>
+        <div style="font-size:.8rem;color:var(--muted)">⚡ Synchronous → every write mirrors instantly</div>
+        <div style="background:rgba(91,141,184,.08);border:1px solid rgba(91,141,184,.2);border-radius:7px;padding:10px;margin-top:6px;font-family:'JetBrains Mono',monospace;font-size:.77rem;color:var(--muted)">STANDBY DB · AZ-1b · (Passive — no reads!)</div>
+      </div>
+      <div class="split-item">Replication: <strong>SYNCHRONOUS</strong></div>
+      <div class="split-item">Failover: <strong>AUTOMATIC</strong> (~60s)</div>
+      <div class="split-item">Standby serves reads: <strong style="color:var(--red)">NO</strong></div>
+      <div class="split-item">Data loss: <strong>Near zero</strong></div>
+    </div>
+    <div class="vs-badge">VS</div>
+    <div class="split-box" style="border-top:2px solid var(--sky)">
+      <div class="split-title" style="color:var(--sky)">📖 Read Replicas — Performance</div>
+      <div style="text-align:center;padding:12px 0">
+        <div style="background:rgba(255,179,0,.08);border:1px solid rgba(255,179,0,.2);border-radius:7px;padding:8px;margin-bottom:6px;font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--gold)">PRIMARY DB (Writes)</div>
+        <div style="font-size:.78rem;color:var(--muted)">async replication (lag possible)</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:5px;margin-top:6px">
+          <div style="background:rgba(41,182,246,.08);border:1px solid rgba(41,182,246,.2);border-radius:5px;padding:6px;font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--sky)">Replica 1</div>
+          <div style="background:rgba(41,182,246,.08);border:1px solid rgba(41,182,246,.2);border-radius:5px;padding:6px;font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--sky)">Replica 2</div>
+          <div style="background:rgba(41,182,246,.08);border:1px solid rgba(41,182,246,.2);border-radius:5px;padding:6px;font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--sky)">Replica 3</div>
+        </div>
+      </div>
+      <div class="split-item">Replication: <strong>ASYNCHRONOUS</strong></div>
+      <div class="split-item">Failover: <strong>MANUAL</strong> (promotion)</div>
+      <div class="split-item">Replicas serve reads: <strong style="color:var(--green)">YES</strong></div>
+      <div class="split-item">Data loss: <strong>Possible replication lag</strong></div>
+    </div>
+  </div>
+
+  <h3 style="font-family:'Playfair Display',serif;margin:24px 0 14px">🕰️ Point-in-Time Recovery (PITR)</h3>
+  <div class="card" style="background:linear-gradient(135deg,rgba(255,179,0,.04),rgba(41,182,246,.04))">
+    <p style="font-size:.88rem;margin-bottom:14px"><strong>PITR = Daily Snapshot + Continuous Transaction Logs</strong> — Restore to any second within 1–35 day window.</p>
+    <div class="tline">
+      <div class="tl"><div class="tl-t">Daily Automated Snapshots</div><div class="tl-d">AWS takes full DB snapshot every day. Foundation for PITR.</div></div>
+      <div class="tl"><div class="tl-t">Continuous Transaction Logs</div><div class="tl-d">Every INSERT/UPDATE/DELETE logged continuously. Enables second-level precision.</div></div>
+      <div class="tl bad"><div class="tl-t" style="color:var(--red)">10:05 AM — Developer runs bad DELETE 💥</div><div class="tl-d">Accidentally deletes critical production data. Tables emptied. App breaks.</div></div>
+      <div class="tl bad"><div class="tl-t" style="color:var(--gold)">10:30 AM — Incident Detected</div><div class="tl-d">CloudWatch alarm fires. On-call engineer checks DB. Data is gone!</div></div>
+      <div class="tl good"><div class="tl-t" style="color:var(--green)">PITR → Restore to 10:04:59 AM ✅</div><div class="tl-d">RDS Console → Select DB → Actions → Restore to Point in Time → Creates NEW DB instance. Original untouched! RPO: seconds.</div></div>
+    </div>
+  </div>
+
+  <h3 style="font-family:'Playfair Display',serif;margin:24px 0 12px">🔐 RDS Encryption</h3>
+  <div class="cg">
+    <div class="card" style="border-left:3px solid var(--sky)">
+      <h3 style="color:var(--sky)">At Rest — KMS (AES-256)</h3>
+      <pre style="margin:8px 0;font-size:.74rem">App → RDS Engine
+       ↓ AES-256 via KMS
+[Encrypted EBS Storage]
+       ↓ Also encrypted:
+Snapshots · Backups · Read Replicas</pre>
+      <p style="font-size:.8rem;color:var(--muted)">Transparent to app — no code changes needed.</p>
+    </div>
+    <div class="card" style="border-left:3px solid var(--green)">
+      <h3 style="color:var(--green)">In Transit — SSL/TLS</h3>
+      <pre style="margin:8px 0;font-size:.74rem">Client App
+   ↓ SSL/TLS encrypted
+RDS Endpoint</pre>
+      <p style="font-size:.8rem;color:var(--muted)">AWS provides SSL certificates. Enable via connection string param.</p>
+    </div>
+  </div>
+  <div class="cl cr">
+    <span class="ci">🚨</span>
+    <div><strong>Critical Constraint:</strong> Encryption must be enabled AT DB CREATION TIME. Cannot encrypt existing unencrypted DB!<br>Workaround: Take snapshot → Copy snapshot WITH encryption → Restore new encrypted DB.</div>
+  </div>
+
+  <h3 style="font-family:'Playfair Display',serif;margin:24px 0 12px">⚡ RDS Proxy — Connection Pooling</h3>
+  <div class="card">
+    <div class="cg">
+      <div>
+        <p style="font-size:.85rem;margin-bottom:8px;color:var(--red)"><strong>❌ Without Proxy:</strong></p>
+        <pre style="font-size:.74rem;border-left-color:var(--red)">1000 Lambda invocations
+    ↓
+1000 new DB connections
+    ↓
+DB CPU spikes to 100%
+max_connections exceeded
+App errors 🔥</pre>
+      </div>
+      <div>
+        <p style="font-size:.85rem;margin-bottom:8px;color:var(--green)"><strong>✅ With RDS Proxy:</strong></p>
+        <pre style="font-size:.74rem;border-left-color:var(--green)">1000 Lambda invocations
+    ↓
+RDS Proxy (50 pooled conns)
+    ↓
+DB CPU stays at 20%
+All requests served! 😊
+IAM auth supported 🔐</pre>
+      </div>
+    </div>
+  </div>
+
+  <h3 style="font-family:'Playfair Display',serif;margin:24px 0 12px">🌟 Amazon Aurora — AWS Proprietary</h3>
+  <div class="card" style="background:linear-gradient(135deg,rgba(255,179,0,.04),rgba(29,233,182,.04));border-color:rgba(255,179,0,.2)">
+    <div class="cg">
+      <div>
+        <p style="font-size:.84rem;margin-bottom:10px">Aurora is AWS's <strong>own</strong> relational database engine — not just hosted MySQL. Completely re-engineered for cloud.</p>
+        <pre style="font-size:.74rem">Standard RDS: Compute + EBS (tightly coupled)
+Aurora:       Compute layer
+                    ↕️
+              Distributed Storage
+              (6 copies, 3 AZs, auto-scale)</pre>
+      </div>
+      <div style="padding-top:4px">
+        <ul style="list-style:none;font-size:.84rem">
+          <li style="padding:4px 0">⚡ 5x faster than MySQL</li>
+          <li style="padding:4px 0">⚡ 3x faster than PostgreSQL</li>
+          <li style="padding:4px 0">🔄 Up to 15 read replicas</li>
+          <li style="padding:4px 0">⏱️ Failover in ~30 seconds</li>
+          <li style="padding:4px 0">💾 Auto-scales to 128 TB</li>
+          <li style="padding:4px 0">🌟 The only AWS proprietary DB</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════ §08 ELASTICACHE ══════════════════════════ -->
+<section class="section" id="cache">
+  <div class="sh"><span class="sn">08</span><h2>Amazon ElastiCache</h2><div class="sl"></div></div>
+
+  <div class="cg">
+    <div class="card" style="border-top:2px solid var(--red)">
+      <h3 style="color:var(--red)">❌ Without Cache</h3>
+      <pre style="font-size:.74rem;border-left-color:var(--red)">Every request → RDS (disk)
+200ms latency
+DB CPU 90%+
+Bottleneck under load</pre>
+    </div>
+    <div class="card" style="border-top:2px solid var(--green)">
+      <h3 style="color:var(--green)">✅ With ElastiCache</h3>
+      <pre style="font-size:.74rem;border-left-color:var(--green)">90% requests → Redis (RAM)
+0.3ms latency ⚡
+DB CPU 10%
+Scale to millions</pre>
+    </div>
+  </div>
+
+  <h3 style="font-family:'Playfair Display',serif;margin:22px 0 12px">🔄 Cache Hit vs Cache Miss</h3>
+  <div class="flow" style="flex-wrap:wrap;gap:8px;justify-content:flex-start;margin:14px 0">
+    <div class="fb s" style="min-width:140px">📨 Request<br><span style="font-size:.65rem">GET /product/101</span></div>
+    <div class="farr">→</div>
+    <div class="fb g" style="min-width:120px">App Server<br><span style="font-size:.65rem">Check cache first</span></div>
+    <div class="farr">→</div>
+    <div style="display:flex;flex-direction:column;gap:8px">
+      <div class="fb e">CACHE HIT ✅<br><span style="font-size:.65rem">Return from RAM<br>⚡ 0.3ms</span></div>
+      <div class="fb r">CACHE MISS ❌<br><span style="font-size:.65rem">Query RDS → SET cache<br>Store for next time</span></div>
+    </div>
+  </div>
+
+  <h3 style="font-family:'Playfair Display',serif;margin:22px 0 12px">⚔️ Redis vs Memcached</h3>
+  <div class="tw">
+    <table>
+      <tr><th>Feature</th><th>🚀 Redis</th><th>⚡ Memcached</th></tr>
+      <tr><td>Data Structures</td><td class="y">Strings, Lists, Sets, Hashes, Sorted Sets</td><td class="w">Simple key-value only</td></tr>
+      <tr><td>Persistence</td><td class="y">✅ RDB + AOF</td><td class="no">❌ Memory only (data lost on restart)</td></tr>
+      <tr><td>Replication / HA</td><td class="y">✅ Master-Replica</td><td class="no">❌ None</td></tr>
+      <tr><td>Pub/Sub</td><td class="y">✅ Yes</td><td class="no">❌ No</td></tr>
+      <tr><td>Multi-threading</td><td class="w">Single-threaded core</td><td class="y">✅ Multi-threaded</td></tr>
+      <tr><td>Use Cases</td><td>Sessions, leaderboards, analytics, HA</td><td>Ultra-simple caching, max throughput</td></tr>
+    </table>
+  </div>
+</section>
+
+<!-- ══════════════════════════ §09 DYNAMODB ══════════════════════════ -->
+<section class="section" id="dynamo">
+  <div class="sh"><span class="sn">09</span><h2>Amazon DynamoDB</h2><div class="sl"></div></div>
+
+  <div class="tw">
+    <table>
+      <tr><th>Feature</th><th>RDS (Relational)</th><th>DynamoDB (NoSQL)</th></tr>
+      <tr><td>Schema</td><td class="w">Fixed (define upfront)</td><td class="y">Flexible (schema-less)</td></tr>
+      <tr><td>Scaling</td><td class="w">Vertical (bigger server)</td><td class="y">Horizontal (auto)</td></tr>
+      <tr><td>Consistency</td><td class="y">Strong ACID</td><td class="w">Eventual (default)</td></tr>
+      <tr><td>Joins</td><td class="y">✅ Supported</td><td class="no">❌ Not supported</td></tr>
+      <tr><td>Latency</td><td class="w">Query-dependent</td><td class="y">⚡ Single-digit ms</td></tr>
+      <tr><td>Best For</td><td>Finance, ERP, complex queries</td><td>IoT, gaming, sessions, massive scale</td></tr>
+    </table>
+  </div>
+
+  <h3 style="font-family:'Playfair Display',serif;margin:22px 0 12px">🔑 Data Retrieval Methods</h3>
+  <pre><span class="c"># Example: E-commerce Orders Table</span>
+<span class="c"># PK = user_id (Partition Key)  |  SK = order_id (Sort Key)</span>
+
+┌────────────┬──────────┬──────────┬──────────┐
+│ user_id(PK)│order_id  │  amount  │   date   │
+├────────────┼──────────┼──────────┼──────────┤
+│    1001    │ order_1  │  ₹500    │ Jan-01   │
+│    1001    │ order_2  │  ₹300    │ Jan-03   │
+│    1001    │ order_3  │  ₹750    │ Jan-05   │
+│    1002    │ order_1  │  ₹200    │ Jan-02   │
+└────────────┴──────────┴──────────┴──────────┘
+
+<span class="k">Method 1: GetItem</span>  → PK=1001, SK=order_1      → <span class="v">O(1) ⚡ Single exact item</span>
+<span class="k">Method 2: Query</span>    → PK=1001                   → <span class="v">All orders for user 1001</span>
+           + SK:    → SK BETWEEN order_1..order_3 → <span class="v">Range queries</span>
+<span class="k">Method 3: Scan</span>     → Read ENTIRE table          → <span class="err">Never in production! Expensive!</span>
+
+<span class="c"># Design Rule: "Access Pattern First"</span>
+<span class="err">Bad PK:  country = "India"  → Hot partition (millions in same bucket) ❌</span>
+<span class="v">Good PK: user_id            → Evenly distributed ✅</span></pre>
+</section>
+
+<!-- ══════════════════════════ §10 TROUBLESHOOTING ══════════════════════════ -->
+<section class="section" id="trouble">
+  <div class="sh"><span class="sn">10</span><h2>Troubleshooting Scenarios</h2><div class="sl"></div></div>
+
+  <details>
+    <summary>🔴 EC2 Instance Terminated Unexpectedly</summary>
+    <div class="det-body">
+      <div class="cl ca"><span class="ci">🔑</span><div><strong>Key:</strong> CloudTrail = WHO · CloudWatch = WHY · ASG = WHAT happened automatically</div></div>
+      <pre><span class="k">Step 1:</span> Check state → aws ec2 describe-instances --instance-ids i-xxxxx
+<span class="k">Step 2:</span> CloudTrail → Event "TerminateInstances" → WHO / WHEN / SOURCE IP
+<span class="k">Step 3:</span> ASG → Health check failed? → Auto-replaced instance?
+<span class="k">Step 4:</span> Spot Instance? → AWS terminated for capacity
+<span class="k">Step 5:</span> Automation? → Lambda / Terraform / Jenkins cleanup scripts
+<span class="k">Recovery:</span>
+  EBS snapshot exists? → Create volume → Attach to new EC2
+  AMI exists? → Launch new instance
+  No backup? → Rebuild from IaC (Terraform apply)
+<span class="k">Prevention:</span>
+  ✅ Enable termination protection
+  ✅ Regular EBS snapshots + AMI backups
+  ✅ CloudWatch alarms + SNS notifications
+  ✅ IaC (Terraform) for reproducibility</pre>
+    </div>
+  </details>
+
+  <details>
+    <summary>🟡 RDS Storage Full — Production Incident</summary>
+    <div class="det-body">
+      <pre><span class="c"># Symptoms: App write failures, "No space left on device"</span>
+<span class="c"># CloudWatch: FreeStorageSpace → 0</span>
+
+<span class="k">Immediate Fix (no downtime):</span>
+aws rds modify-db-instance \
+  --db-instance-identifier mydb \
+  --allocated-storage 200 \
+  --apply-immediately
+<span class="c"># Storage can ONLY INCREASE, never decrease</span>
+
+<span class="k">Root Cause — Find biggest tables:</span>
+SELECT table_name, pg_size_pretty(pg_total_relation_size(table_name))
+FROM information_schema.tables ORDER BY 2 DESC;
+
+<span class="k">MySQL binary log cleanup:</span>
+PURGE BINARY LOGS BEFORE NOW() - INTERVAL 3 DAY;
+
+<span class="k">Prevention:</span>
+  ✅ CloudWatch alarm: FreeStorageSpace &lt; 20%
+  ✅ Enable Storage Autoscaling in RDS
+  ✅ S3 lifecycle for old data → Glacier
+  ✅ Log rotation policies</pre>
+    </div>
+  </details>
+
+  <details>
+    <summary>🟣 Developer Deleted S3 / RDS / EC2 — Recovery Plan</summary>
+    <div class="det-body">
+      <div class="cg">
+        <div>
+          <p style="font-weight:700;color:var(--sky);margin-bottom:8px">Recovery</p>
+          <ul style="font-size:.85rem;padding-left:16px">
+            <li style="padding:3px 0">CloudTrail → Who/When/From where</li>
+            <li style="padding:3px 0">EC2 → AMI or EBS snapshot → new instance</li>
+            <li style="padding:3px 0">RDS → PITR to just before deletion</li>
+            <li style="padding:3px 0">S3 → Restore from version (if enabled)</li>
+          </ul>
+        </div>
+        <div>
+          <p style="font-weight:700;color:var(--green);margin-bottom:8px">Prevention</p>
+          <ul style="font-size:.85rem;padding-left:16px">
+            <li style="padding:3px 0">IAM: deny DeleteObject, TerminateInstances in prod</li>
+            <li style="padding:3px 0">EC2 termination protection</li>
+            <li style="padding:3px 0">RDS deletion protection</li>
+            <li style="padding:3px 0">S3 versioning + MFA delete</li>
+            <li style="padding:3px 0">Terraform/CloudFormation (IaC)</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </details>
+
+  <details>
+    <summary>🔵 EC2 Cannot Connect to RDS MySQL</summary>
+    <div class="det-body">
+      <pre><span class="c"># Debug Order (Most → Least Common):</span>
+
+<span class="k">1. Security Group (80% of issues!)</span>
+   RDS SG inbound: <span class="v">Allow 3306 from EC2-SG</span>  (NOT from IP!)
+   <span class="err">Wrong: Allow 3306 from 10.0.1.5</span>
+   <span class="v">Right: Allow 3306 from sg-xxxxxxxx</span>
+
+<span class="k">2. Port check:</span>
+   <span class="s">nc -zv &lt;RDS-ENDPOINT&gt; 3306</span>
+
+<span class="k">3. Same VPC? Subnet routing?</span>
+   EC2 VPC ID = RDS VPC ID?
+
+<span class="k">4. NACL rules:</span>
+   Inbound: allow 3306  |  Outbound: allow 1024-65535
+
+<span class="k">5. Credentials:</span>
+   <span class="s">mysql -h &lt;RDS-ENDPOINT&gt; -u admin -p</span>
+
+<span class="k">6. DNS:</span>
+   <span class="s">nslookup &lt;RDS-ENDPOINT&gt;</span>
+   enableDnsSupport + enableDnsHostnames = true</pre>
+    </div>
+  </details>
+
+  <details>
+    <summary>🟠 Docker Container Exits Immediately</summary>
+    <div class="det-body">
+      <pre><span class="c"># Diagnose:</span>
+<span class="s">docker ps -a</span>
+<span class="s">docker logs &lt;container_id&gt;</span>
+<span class="s">docker inspect &lt;id&gt; --format='{{.State.ExitCode}}'</span>
+
+<span class="c"># Exit Codes:</span>
+<span class="n">0</span>   → Completed normally (process ended as expected)
+<span class="n">1</span>   → App crash / unhandled error
+<span class="n">137</span> → OOM killed (SIGKILL) or docker stop
+<span class="n">143</span> → Graceful SIGTERM
+
+<span class="c"># Most Common Fix: Keep process in FOREGROUND!</span>
+<span class="err">CMD service nginx start         # ❌ daemonizes, PID 1 exits</span>
+<span class="v">CMD ["nginx", "-g", "daemon off;"]  # ✅ foreground, container lives</span>
+
+<span class="c"># Debug: override entrypoint to get a shell</span>
+<span class="s">docker run -it --entrypoint /bin/sh myimage</span>
+
+<span class="c"># Golden Rule: Container lives/dies with PID 1. Keep it FOREGROUND!</span></pre>
+    </div>
+  </details>
+
+  <details>
+    <summary>🟤 ECS Service 502/503 — Memory Leak + ALB Misconfiguration</summary>
+    <div class="det-body">
+      <div class="cg">
+        <div>
+          <p style="font-weight:700;color:var(--red);margin-bottom:8px">Root Cause Found</p>
+          <ul style="font-size:.84rem;padding-left:16px">
+            <li>Node.js unclosed DB connection pool — memory leak</li>
+            <li>ALB <code>unhealthy_threshold = 10</code> — routing to sick tasks for 5 min!</li>
+          </ul>
+        </div>
+        <div>
+          <p style="font-weight:700;color:var(--green);margin-bottom:8px">Fixes Applied</p>
+          <ul style="font-size:.84rem;padding-left:16px">
+            <li>unhealthy_threshold = 3 (was 10)</li>
+            <li>Health interval = 10s (was 30s)</li>
+            <li>/health returns 503 when memory > 80%</li>
+            <li>Fixed pool.end() in app code</li>
+          </ul>
+        </div>
+      </div>
+      <div class="itip" style="margin-top:14px"><div class="itip-h">🎯 Lesson Learned</div><p style="font-size:.86rem">"Health checks are your first line of defense. A misconfigured health check routes live traffic to dying services. Make ALB health check tuning a standard part of every deployment checklist."</p></div>
+    </div>
+  </details>
+</section>
+
+<!-- ══════════════════════════ §11 COST ══════════════════════════ -->
+<section class="section" id="cost">
+  <div class="sh"><span class="sn">11</span><h2>AWS Cost Optimization</h2><div class="sl"></div></div>
+
+  <div class="flow" style="flex-wrap:wrap;margin:18px 0;gap:8px">
+    <div class="fb g" style="min-width:110px">📊 Analyze<br><span style="font-size:.64rem">Cost Explorer<br>Budgets</span></div>
+    <div class="farr">→</div>
+    <div class="fb s" style="min-width:110px">🔍 Find Waste<br><span style="font-size:.64rem">CloudWatch<br>CPU &lt; 5%</span></div>
+    <div class="farr">→</div>
+    <div class="fb t" style="min-width:110px">📏 Right-Size<br><span style="font-size:.64rem">Compute<br>Optimizer</span></div>
+    <div class="farr">→</div>
+    <div class="fb e" style="min-width:110px">💳 Pricing<br><span style="font-size:.64rem">Reserved<br>Savings Plans</span></div>
+    <div class="farr">→</div>
+    <div class="fb p" style="min-width:110px">⚡ Spot<br><span style="font-size:.64rem">Batch / CI-CD<br>90% savings</span></div>
+    <div class="farr">→</div>
+    <div class="fb g" style="min-width:110px">📦 Storage<br><span style="font-size:.64rem">S3→Glacier<br>Lifecycle</span></div>
+  </div>
+
+  <h3 style="font-family:'Playfair Display',serif;margin:20px 0 14px">Savings by Strategy</h3>
+  <div class="bars">
+    <div class="bar-row"><div class="bar-lbl">Idle Cleanup</div><div class="bar-bg"><div class="bar-fill" style="width:15%;background:linear-gradient(90deg,#1565C0,#1976D2)">10–15%</div></div><div class="bar-val">10–15%</div></div>
+    <div class="bar-row"><div class="bar-lbl">Right-Sizing</div><div class="bar-bg"><div class="bar-fill" style="width:20%;background:linear-gradient(90deg,#00695C,#00796B)">15–20%</div></div><div class="bar-val">15–20%</div></div>
+    <div class="bar-row"><div class="bar-lbl">Reserved / Plans</div><div class="bar-bg"><div class="bar-fill" style="width:40%;background:linear-gradient(90deg,#4A148C,#6A1B9A)">30–40%</div></div><div class="bar-val">30–40%</div></div>
+    <div class="bar-row"><div class="bar-lbl">S3 Lifecycle</div><div class="bar-bg"><div class="bar-fill" style="width:30%;background:linear-gradient(90deg,#E65100,#F57C00)">20–30%</div></div><div class="bar-val">20–30%</div></div>
+    <div class="bar-row"><div class="bar-lbl">Non-Prod Schedule</div><div class="bar-bg"><div class="bar-fill" style="width:65%;background:linear-gradient(90deg,#1B5E20,#2E7D32)">60–70%</div></div><div class="bar-val">60–70%</div></div>
+    <div class="bar-row"><div class="bar-lbl">Spot Instances</div><div class="bar-bg"><div class="bar-fill" style="width:90%;background:linear-gradient(90deg,#B71C1C,#C62828)">Up to 90%</div></div><div class="bar-val">~90%</div></div>
+  </div>
+
+  <div class="itip" style="margin-top:16px">
+    <div class="itip-h">🎯 Interview Answer Template</div>
+    <p style="font-size:.87rem">"I used AWS Cost Explorer to identify billing spikes. CloudWatch showed EC2 instances with CPU below 5% — terminated those for 10–15% immediate savings. Used Compute Optimizer for right-sizing. Converted stable workloads to Savings Plans for 30–40% off. Scheduled non-prod environments off nights and weekends saving 60–70% on those. Implemented S3 lifecycle policies moving old data to Glacier. Total reduction: <strong>35–50% monthly bill</strong>."</p>
+  </div>
+</section>
+
+<!-- ══════════════════════════ §12 CHEAT SHEET ══════════════════════════ -->
+<section class="section" id="cheat">
+  <div class="sh"><span class="sn">12</span><h2>Interview Cheat Sheet</h2><div class="sl"></div></div>
+
+  <div class="cg">
+    <div class="card">
+      <h3 style="color:var(--sky)">🛡️ Key Comparisons</h3>
+      <ul style="list-style:none;font-size:.84rem">
+        <li style="padding:5px 0;border-bottom:1px solid var(--border)"><strong>Multi-AZ</strong> = HA (sync) <strong>vs Read Replicas</strong> = Performance (async)</li>
+        <li style="padding:5px 0;border-bottom:1px solid var(--border)"><strong>SG</strong> = Instance-level, stateful <strong>vs NACL</strong> = Subnet-level, stateless</li>
+        <li style="padding:5px 0;border-bottom:1px solid var(--border)"><strong>Snapshot</strong> = Manual, exact point <strong>vs Backup</strong> = Auto + PITR</li>
+        <li style="padding:5px 0;border-bottom:1px solid var(--border)"><strong>IGW</strong> = Bidirectional <strong>vs NAT</strong> = Outbound only</li>
+        <li style="padding:5px 0"><strong>TCP</strong> = Reliable+slow <strong>vs UDP</strong> = Fast+unreliable</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3 style="color:var(--gold)">⚡ Quick Commands</h3>
+      <ul class="cmd-list" style="list-style:none;font-size:.82rem">
+        <li style="padding:4px 0"><code style="font-size:.75rem">nc -zv RDS-ENDPOINT 3306</code> — Port check</li>
+        <li style="padding:4px 0"><code style="font-size:.75rem">nslookup RDS-ENDPOINT</code> — DNS check</li>
+        <li style="padding:4px 0"><code style="font-size:.75rem">docker inspect id --format ExitCode</code> — Exit code</li>
+        <li style="padding:4px 0"><code style="font-size:.75rem">systemctl status nginx</code> — Web server</li>
+        <li style="padding:4px 0"><code style="font-size:.75rem">aws ec2 describe-instances</code> — EC2 state</li>
+        <li style="padding:4px 0"><code style="font-size:.75rem">CloudTrail → TerminateInstances</code> — WHO did it</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:10px">
+    <h3 style="color:var(--teal)">🎯 One-Line Interview Answers</h3>
+    <div style="font-size:.85rem">
+      <p style="padding:6px 0;border-bottom:1px solid var(--border)"><strong style="color:var(--gold)">NAT Gateway:</strong> Performs SNAT — translates private IPs to Elastic IP for secure outbound internet access, blocking all unsolicited inbound traffic.</p>
+      <p style="padding:6px 0;border-bottom:1px solid var(--border)"><strong style="color:var(--sky)">PITR:</strong> Combines daily snapshots + continuous transaction logs to restore a DB to any second within the retention window.</p>
+      <p style="padding:6px 0;border-bottom:1px solid var(--border)"><strong style="color:var(--green)">SG Referencing:</strong> Allow traffic from another SG instead of IP — AWS checks if source ENI has that SG attached, making it dynamic and Auto Scaling-friendly.</p>
+      <p style="padding:6px 0;border-bottom:1px solid var(--border)"><strong style="color:var(--purple)">Aurora:</strong> AWS's proprietary re-engineered DB with decoupled compute+storage, 6 copies across 3 AZs, 5x faster than MySQL.</p>
+      <p style="padding:6px 0"><strong style="color:var(--teal)">RDS Proxy:</strong> Connection pooling layer that reuses DB connections — critical for Lambda and microservices to prevent connection exhaustion.</p>
+    </div>
+  </div>
+</section>
+
+</div><!-- /wrap -->
+
+<footer>
+  <div style="max-width:640px;margin:0 auto">
+    <div class="ft-name">Akshay Sawant</div>
+    <div class="ft-sub">AWS DevOps Engineer · AWS Solutions Architect Associate · Pune, Maharashtra, India</div>
+    <div class="tags" style="justify-content:center">
+      <span class="tag tg">AWS</span>
+      <span class="tag ts">DevOps</span>
+      <span class="tag tt">Docker</span>
+      <span class="tag tp">Kubernetes</span>
+      <span class="tag tg">CI/CD</span>
+    </div>
+    <p style="font-size:.8rem;color:var(--muted)">⭐ If this helped you, give the repo a star! ⭐<br>
+    <span style="font-size:.72rem;opacity:.6">AWS Cloud & DevOps Learning Series · Scenario-Based Notes</span></p>
+  </div>
+</footer>
+
+<script>
+window.addEventListener('load',()=>{
+  // Animate bars
+  document.querySelectorAll('.bar-fill').forEach(b=>{
+    const w=b.style.width; b.style.width='0';
+    setTimeout(()=>{ b.style.width=w; },400);
+  });
+  // Intersection observer for sections
+  const obs=new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting) e.target.style.opacity='1';
+    });
+  },{threshold:.1});
+  document.querySelectorAll('.section').forEach(s=>obs.observe(s));
+});
+</script>
+</body>
+</html>
+HTMLEOF
+echo "✅ HTML created — $(wc -l < /mnt/user-data/outputs/AWS-README.html) lines"
