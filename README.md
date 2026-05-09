@@ -1024,5 +1024,5 @@ AWS DevOps Engineer | AWS Solutions Architect Associate
 *Also check out: 🐳 [Docker Mastery Notes](../docker/README.md)*
 
 </div>
-MDEOF
+
 
