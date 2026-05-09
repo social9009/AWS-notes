@@ -1025,4 +1025,4 @@ AWS DevOps Engineer | AWS Solutions Architect Associate
 
 </div>
 MDEOF
-echo "✅ README.md created — $(wc -l < /mnt/user-data/outputs/README.md) lines"
+
